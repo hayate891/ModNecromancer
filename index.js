@@ -1,24 +1,28 @@
 define([
-	'misc/events'
+
 ], function(
-	events
+
 ) {
 	return {
 		name: 'Necormancer Class',
 
+		extraScripts: [
+			'spellDrainLife'
+		],
+
 		init: function() {
-			events.on('onBeforeGetClasses', this.beforeGetClasses.bind(this));
-			events.on('onBeforeGetSkins', this.beforeGetSkins.bind(this));
-			events.on('onBeforeGetItemTypes', this.beforeGetItemTypes.bind(this));
-			events.on('onBeforeGetSpellsInfo', this.beforeGetSpellsInfo.bind(this));
-			events.on('onBeforeGetSpellsConfig', this.beforeGetSpellsConfig.bind(this));
-			events.on('onBeforeGetSpellTemplate', this.beforeGetSpellTemplate.bind(this));
-			events.on('onBeforeGetResourceList', this.beforeGetResourceList.bind(this));
+			this.events.on('onBeforeGetClasses', this.beforeGetClasses.bind(this));
+			this.events.on('onBeforeGetSkins', this.beforeGetSkins.bind(this));
+			this.events.on('onBeforeGetItemTypes', this.beforeGetItemTypes.bind(this));
+			this.events.on('onBeforeGetSpellsInfo', this.beforeGetSpellsInfo.bind(this));
+			this.events.on('onBeforeGetSpellsConfig', this.beforeGetSpellsConfig.bind(this));
+			this.events.on('onBeforeGetSpellTemplate', this.beforeGetSpellTemplate.bind(this));
+			this.events.on('onBeforeGetResourceList', this.beforeGetResourceList.bind(this));
 		},
 
 		beforeGetResourceList: function(list) {
-			list.push('server/mods/example/images/inGameSprite.png');
-			list.push('server/mods/example/images/projectileSprite.png');
+			list.push(`${this.folderName}/images/inGameSprite.png`);
+			list.push(`${this.folderName}/images/projectileSprite.png`);
 		},
 
 		beforeGetClasses: function(classes) {
@@ -28,14 +32,14 @@ define([
 					hpMax: 50
 				},
 				vitScale: 10,
-				spritesheet: 'server/mods/example/images/inGameSprite.png'
+				spritesheet: `${this.folderName}/images/inGameSprite.png`
 			};
 			classes.weapons.necromancer = 'Wand';
 		},
 
 		beforeGetSpellTemplate: function(spell) {
 			if (spell.type == 'DrainLife')
-				spell.template = require('mods/example/spellDrainLife');
+				spell.template = require(`${this.relativeFolderName}/spellDrainLife`);
 		},
 
 		beforeGetSkins: function(skins) {
@@ -43,7 +47,7 @@ define([
 				name: 'Necromancer 1',
 				sprite: [2, 0],
 				class: 'necromancer',
-				spritesheet: 'server/mods/example/images/classSprite.png',
+				spritesheet: `${this.folderName}/images/classSprite.png`,
 				default: true
 			};
 		},
@@ -52,7 +56,7 @@ define([
 			types.twoHanded.Wand = {
 				sprite: [0, 0],
 				spellName: 'drain life',
-				spritesheet: 'server/mods/example/images/weaponSprite.png'
+				spritesheet: `${this.folderName}/images/weaponSprite.png`
 			};
 		},
 
@@ -77,7 +81,7 @@ define([
 				description: 'Absorbs the life-force of your enemies.',
 				type: 'drainLife',
 				icon: [0, 0],
-				spritesheet: 'server/mods/example/images/abilitySprite.png',
+				spritesheet: `${this.folderName}/images/abilitySprite.png`,
 				particles: {
 					color: {
 						start: ['ff4252', 'b34b3a'],

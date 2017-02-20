@@ -37,7 +37,7 @@ define([
 				}, {
 					type: 'attackAnimation',
 					layer: 'projectiles',
-					spriteSheet: 'server/mods/example/images/projectileSprite.png',
+					spriteSheet: `${this.folderName}/images/projectileSprite.png`,
 					loop: -1,
 					row: 0,
 					col: 0
